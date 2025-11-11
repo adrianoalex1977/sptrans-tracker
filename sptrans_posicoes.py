@@ -4,7 +4,7 @@ import datetime
 import os
 
 # === CONFIGURAÇÕES ===
-TOKEN = "802512a36820ec0b18f686efee51938409b8b9a6e5dab88d49609f59f7e8231c"
+TOKEN = os.getenv("TOKEN")
 BASE_URL = "https://api.olhovivo.sptrans.com.br/v2.1"
 
 # Sessão persistente
