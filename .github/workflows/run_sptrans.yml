@@ -27,11 +27,13 @@ jobs:
           mkdir -p dados/posicoes
 
       - name: Executar script principal
+        env:
+          SPTRANS_TOKEN: ${{ secrets.SPTRANS_TOKEN }}
         run: python sptrans_posicoes.py
-        
 
       - name: Fazer upload dos arquivos JSON
         uses: actions/upload-artifact@v4
         with:
           name: posicoes_json
           path: dados/posicoes/*.json
+
