@@ -1,56 +1,36 @@
-name: Coleta SPTrans (debug)
+name: SPTrans Tracker
 
 on:
   schedule:
-    - cron: "*/1 * * * *"
-  workflow_dispatch:
+    - cron: "*/1 * * * *"  # Executa a cada 1 minuto
+  workflow_dispatch:       # Permite executar manualmente
 
 jobs:
-  run:
+  run-tracker:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Fazer checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Configurar Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
-
-      - name: Mostrar variável de ambiente (presença)
-        env:
-          SPTRANS_API_KEY: ${{ secrets.SPTRANS_API_KEY }}
-        run: |
-          python - <<'PY'
-import os
-print("SPTRANS_API_KEY is set?", bool(os.getenv("SPTRANS_API_KEY")))
-# NUNCA imprimir o valor real do secret
-PY
+          python-version: '3.11'
 
       - name: Instalar dependências
-        run: pip install requests
-
-      - name: Rodar script sptrans_posicoes.py
-        env:
-          SPTRANS_API_KEY: ${{ secrets.SPTRANS_API_KEY }}
         run: |
-          echo "== Início execução =="
-          python sptrans_posicoes.py || true
-          echo "== Fim execução =="
+          pip install requests
 
-      - name: Listar arquivos (raiz)
+      - name: Criar pastas para dados
         run: |
-          echo "=== LISTA RECURSIVA ==="
-          ls -la
-          echo "=== DADOS/ ==="
-          ls -la dados || true
-          echo "=== DADOS/POSICOES/ ==="
-          ls -la dados/posicoes || true
+          mkdir -p dados/posicoes
 
-      - name: Fazer upload dos arquivos JSON (posicoes)
+      - name: Executar script principal
+        run: python sptrans_posicoes.py
+
+      - name: Fazer upload dos arquivos JSON
         uses: actions/upload-artifact@v4
         with:
-          name: dados-json
-          path: dados/posicoes/
-
+          name: posicoes_json
+          path: dados/posicoes/*.json
