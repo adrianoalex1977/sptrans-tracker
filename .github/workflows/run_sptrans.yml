@@ -1,0 +1,29 @@
+name: Coletar SPTrans
+
+on:
+  schedule:
+    - cron: "*/1 * * * *"  # Executa a cada 1 minuto
+  workflow_dispatch:        # Permite rodar manualmente também
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repositório
+      uses: actions/checkout@v4
+
+    - name: Instalar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Instalar dependências
+      run: pip install requests
+
+    - name: Rodar script SPTrans
+      env:
+        TOKEN: ${{ secrets.SPTRANS_TOKEN }}
+      run: |
+        echo "🔄 Executando script SPTrans..."
+        python sptrans_posicoes.py
