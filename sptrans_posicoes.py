@@ -10,7 +10,7 @@ OUT_DIR = os.path.join("dados", "posicoes")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # Lê token do ambiente
-API_KEY = os.getenv("SPTRANS_API_KEY")
+API_KEY = os.getenv("SPTRANS_TOKEN")
 
 BASE_URL = "https://api.olhovivo.sptrans.com.br/v2.1"
 session = requests.Session()
