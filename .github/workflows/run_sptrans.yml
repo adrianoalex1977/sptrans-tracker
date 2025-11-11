@@ -32,5 +32,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dados-json
-          path: dados/
+          path: dados/posicoes/
 
