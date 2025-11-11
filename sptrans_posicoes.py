@@ -7,6 +7,11 @@ import os
 TOKEN = os.getenv("TOKEN")
 BASE_URL = "https://api.olhovivo.sptrans.com.br/v2.1"
 
+
+# Garante que as pastas existam, mesmo se o repositório estiver vazio
+os.makedirs("dados/posicoes", exist_ok=True)
+
+
 # Sessão persistente
 session = requests.Session()
 
