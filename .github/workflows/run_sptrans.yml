@@ -9,9 +9,14 @@ jobs:
   run-tracker:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write   # Permite que o workflow faça commits no repositório
+
     steps:
       - name: Fazer checkout do repositório
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Configurar Python
         uses: actions/setup-python@v4
@@ -31,9 +36,10 @@ jobs:
           SPTRANS_TOKEN: ${{ secrets.SPTRANS_TOKEN }}
         run: python sptrans_posicoes.py
 
-      - name: Fazer upload dos arquivos JSON
-        uses: actions/upload-artifact@v4
-        with:
-          name: posicoes_json
-          path: dados/posicoes/*.json
-
+      - name: Commitar arquivos JSON no repositório
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add dados/posicoes/*.json || true
+          git commit -m "📦 Atualização automática de posições SPTrans" || echo "Nenhuma alteração para commit"
+          git push
