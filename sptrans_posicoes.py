@@ -135,9 +135,8 @@ def autenticar_api2():
 # ----------------------------------------------------------------------
 # LOOP COMPLETO EM TODOS OS ENDPOINTS
 # ----------------------------------------------------------------------
-def iniciar_loop_kmz(intervalo=10):
+def iniciar_loop_kmz():
 
-    # Lista de endpoints a serem consultados
     endpoints = [
         "/KMZ",
         "/KMZ/BC",
@@ -147,32 +146,26 @@ def iniciar_loop_kmz(intervalo=10):
         "/KMZ/OutrasVias"
     ]
 
-    print("\n🔄 Iniciando ciclo contínuo de KMZ...\n")
+    print("\n🔄 Executando coleta única de KMZ...\n")
 
-    # Autentica uma vez no início
     if not autenticar_api2():
         print("❌ Não foi possível autenticar. Abortando.")
         return
 
-# Loop infinito
-
-while True:
     for endpoint in endpoints:
         baixar_kmz(endpoint)
 
-        print(f"⏳ Aguardando {intervalo} segundos até a próxima consulta...\n")
-        time.sleep(intervalo)
-
-    #print("🔁 Reiniciando o ciclo completo de consultas...\n")
-
+    print("✅ Coleta de KMZ finalizada.")
 
 # ----------------------------------------------------------------------
 # EXECUÇÃO PRINCIPAL
 # ----------------------------------------------------------------------
 if __name__ == "__main__":
     print("SPTRANS_TOKEN presente?", bool(TOKEN))
+
     if autenticar_api():
         solicitar_e_salvar_posicoes()
-         iniciar_loop_kmz(intervalo=10)
+        iniciar_loop_kmz()
     else:
         print("❌ Autenticação falhou. Abortando.")
+
