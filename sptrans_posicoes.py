@@ -2,6 +2,7 @@ import requests
 import json
 import datetime
 import os
+from datetime import datetime
 
 # --- CONFIGURAÇÃO ---
 # Token de Acesso (vem do GitHub Secrets)
@@ -15,6 +16,10 @@ session = requests.Session()
 
 # Garante que as pastas existam
 os.makedirs("dados/posicoes", exist_ok=True)
+os.makedirs("dados/kmz", exist_ok=True)
+
+CAMINHO_KMZ = "dados/kmz/"
+
 
 # ----------------------------------------------------------------------
 # FUNÇÃO 1: AUTENTICAÇÃO
@@ -82,12 +87,91 @@ def solicitar_e_salvar_posicoes():
         return False
 
 
+
+# ----------------------------------------------------------------------
+# BAIXAR KMZ
+# ----------------------------------------------------------------------
+def baixar_kmz(endpoint):
+    url = f"{BASE_URL}{endpoint}"
+
+    print(f"\n📡 Consultando: {url}")
+
+    try:
+        response = session.get(url, timeout=30)
+
+        if response.status_code == 200:
+            agora = datetime.now().strftime("%Y%m%d_%H%M%S")
+            safe_endpoint = endpoint.replace("/", "_").strip("_")
+            #nome_arquivo = f"{caminho}{safe_endpoint}_{agora}.kmz"
+            nome_arquivo = f"{CAMINHO_KMZ}{safe_endpoint}_{agora}.kmz"
+
+
+            with open(nome_arquivo, "wb") as f:
+                f.write(response.content)
+
+            print(f"📁 KMZ salvo: {nome_arquivo}")
+
+        else:
+            print(f"⚠ Erro {response.status_code}: {response.text[:200]}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Erro na requisição KMZ: {e}")
+
+
+# ----------------------------------------------------------------------
+# AUTENTICAR NA API2
+# ----------------------------------------------------------------------
+def autenticar_api2():
+    AUTH_URL = f"{BASE_URL}/Login/Autenticar?token={TOKEN}"
+
+    try:
+        response = session.post(AUTH_URL)
+
+        if response.status_code == 200 and response.text.strip().lower() == "true":
+            print("✅ Autenticado com sucesso!")
+            return True
+        else:
+            print("❌ Falha na autenticação:", response.text)
+            return False
+
+    except requests.exceptions.RequestException as e:
+        print("❌ Erro na autenticação:", e)
+
+
+# ----------------------------------------------------------------------
+# LOOP COMPLETO EM TODOS OS ENDPOINTS
+# ----------------------------------------------------------------------
+def iniciar_loop_kmz():
+
+    endpoints = [
+        "/KMZ",
+        "/KMZ/BC",
+        "/KMZ/CB",
+        "/KMZ/Corredor",
+        "/KMZ/Corredor/BC",
+        "/KMZ/OutrasVias"
+    ]
+
+    print("\n🔄 Executando coleta única de KMZ...\n")
+
+    if not autenticar_api2():
+        print("❌ Não foi possível autenticar. Abortando.")
+        return
+
+    for endpoint in endpoints:
+        baixar_kmz(endpoint)
+
+    print("✅ Coleta de KMZ finalizada.")
+
 # ----------------------------------------------------------------------
 # EXECUÇÃO PRINCIPAL
 # ----------------------------------------------------------------------
 if __name__ == "__main__":
     print("SPTRANS_TOKEN presente?", bool(TOKEN))
+
     if autenticar_api():
         solicitar_e_salvar_posicoes()
+        iniciar_loop_kmz()
     else:
         print("❌ Autenticação falhou. Abortando.")
+

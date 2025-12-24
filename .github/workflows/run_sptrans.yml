@@ -36,10 +36,13 @@ jobs:
           SPTRANS_TOKEN: ${{ secrets.SPTRANS_TOKEN }}
         run: python sptrans_posicoes.py
 
-      - name: Commitar arquivos JSON no repositório
+      - name: Commitar arquivos gerados no repositório
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
           git add dados/posicoes/*.json || true
-          git commit -m "📦 Atualização automática de posições SPTrans" || echo "Nenhuma alteração para commit"
+          git add dados/kmz/*.kmz || true
+
+          git commit -m "📦 Atualização automática SPTrans (JSON + KMZ)" || echo "Nenhuma alteração para commit"
           git push
