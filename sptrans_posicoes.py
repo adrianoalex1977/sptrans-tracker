@@ -16,6 +16,10 @@ session = requests.Session()
 
 # Garante que as pastas existam
 os.makedirs("dados/posicoes", exist_ok=True)
+os.makedirs("dados/kmz", exist_ok=True)
+
+CAMINHO_KMZ = "dados/kmz/"
+
 
 # ----------------------------------------------------------------------
 # FUNÇÃO 1: AUTENTICAÇÃO
@@ -98,7 +102,9 @@ def baixar_kmz(endpoint):
         if response.status_code == 200:
             agora = datetime.now().strftime("%Y%m%d_%H%M%S")
             safe_endpoint = endpoint.replace("/", "_").strip("_")
-            nome_arquivo = f"{caminho}{safe_endpoint}_{agora}.kmz"
+            #nome_arquivo = f"{caminho}{safe_endpoint}_{agora}.kmz"
+            nome_arquivo = f"{CAMINHO_KMZ}{safe_endpoint}_{agora}.kmz"
+
 
             with open(nome_arquivo, "wb") as f:
                 f.write(response.content)
