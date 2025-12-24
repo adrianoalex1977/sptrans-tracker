@@ -2,6 +2,7 @@ import requests
 import json
 import datetime
 import os
+from datetime import datetime
 
 # --- CONFIGURAÇÃO ---
 # Token de Acesso (vem do GitHub Secrets)
@@ -112,6 +113,26 @@ def baixar_kmz(endpoint):
 
 
 # ----------------------------------------------------------------------
+# AUTENTICAR NA API2
+# ----------------------------------------------------------------------
+def autenticar_api2():
+    AUTH_URL = f"{BASE_URL}/Login/Autenticar?token={TOKEN}"
+
+    try:
+        response = session.post(AUTH_URL)
+
+        if response.status_code == 200 and response.text.strip().lower() == "true":
+            print("✅ Autenticado com sucesso!")
+            return True
+        else:
+            print("❌ Falha na autenticação:", response.text)
+            return False
+
+    except requests.exceptions.RequestException as e:
+        print("❌ Erro na autenticação:", e)
+
+
+# ----------------------------------------------------------------------
 # LOOP COMPLETO EM TODOS OS ENDPOINTS
 # ----------------------------------------------------------------------
 def iniciar_loop_kmz(intervalo=10):
@@ -129,19 +150,20 @@ def iniciar_loop_kmz(intervalo=10):
     print("\n🔄 Iniciando ciclo contínuo de KMZ...\n")
 
     # Autentica uma vez no início
-    if not autenticar_api():
+    if not autenticar_api2():
         print("❌ Não foi possível autenticar. Abortando.")
         return
 
-    # Loop infinito
-    while True:
-        for endpoint in endpoints:
-            baixar_kmz(endpoint)
+# Loop infinito
 
-            print(f"⏳ Aguardando {intervalo} segundos até a próxima consulta...\n")
-            time.sleep(intervalo)
+while True:
+    for endpoint in endpoints:
+        baixar_kmz(endpoint)
 
-        print("🔁 Reiniciando o ciclo completo de consultas...\n")
+        print(f"⏳ Aguardando {intervalo} segundos até a próxima consulta...\n")
+        time.sleep(intervalo)
+
+    #print("🔁 Reiniciando o ciclo completo de consultas...\n")
 
 
 # ----------------------------------------------------------------------
