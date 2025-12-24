@@ -82,6 +82,68 @@ def solicitar_e_salvar_posicoes():
         return False
 
 
+
+# ----------------------------------------------------------------------
+# BAIXAR KMZ
+# ----------------------------------------------------------------------
+def baixar_kmz(endpoint):
+    url = f"{BASE_URL}{endpoint}"
+
+    print(f"\n📡 Consultando: {url}")
+
+    try:
+        response = session.get(url, timeout=30)
+
+        if response.status_code == 200:
+            agora = datetime.now().strftime("%Y%m%d_%H%M%S")
+            safe_endpoint = endpoint.replace("/", "_").strip("_")
+            nome_arquivo = f"{caminho}{safe_endpoint}_{agora}.kmz"
+
+            with open(nome_arquivo, "wb") as f:
+                f.write(response.content)
+
+            print(f"📁 KMZ salvo: {nome_arquivo}")
+
+        else:
+            print(f"⚠ Erro {response.status_code}: {response.text[:200]}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Erro na requisição KMZ: {e}")
+
+
+# ----------------------------------------------------------------------
+# LOOP COMPLETO EM TODOS OS ENDPOINTS
+# ----------------------------------------------------------------------
+def iniciar_loop_kmz(intervalo=10):
+
+    # Lista de endpoints a serem consultados
+    endpoints = [
+        "/KMZ",
+        "/KMZ/BC",
+        "/KMZ/CB",
+        "/KMZ/Corredor",
+        "/KMZ/Corredor/BC",
+        "/KMZ/OutrasVias"
+    ]
+
+    print("\n🔄 Iniciando ciclo contínuo de KMZ...\n")
+
+    # Autentica uma vez no início
+    if not autenticar_api():
+        print("❌ Não foi possível autenticar. Abortando.")
+        return
+
+    # Loop infinito
+    while True:
+        for endpoint in endpoints:
+            baixar_kmz(endpoint)
+
+            print(f"⏳ Aguardando {intervalo} segundos até a próxima consulta...\n")
+            time.sleep(intervalo)
+
+        print("🔁 Reiniciando o ciclo completo de consultas...\n")
+
+
 # ----------------------------------------------------------------------
 # EXECUÇÃO PRINCIPAL
 # ----------------------------------------------------------------------
@@ -89,5 +151,6 @@ if __name__ == "__main__":
     print("SPTRANS_TOKEN presente?", bool(TOKEN))
     if autenticar_api():
         solicitar_e_salvar_posicoes()
+         iniciar_loop_kmz(intervalo=10)
     else:
         print("❌ Autenticação falhou. Abortando.")
