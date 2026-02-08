@@ -206,21 +206,28 @@ def loop():
 
 
 def coletar_tudo():
-    print("🚏 Coletando dados SPTrans...")
+    log("🚏 Coletando dados SPTrans...")
 
-    coletar_linhas()
-    coletar_paradas()
-    coletar_corredores()
+    linhas = coletar_linhas() or []
+    corredores = coletar_corredores() or []
+
+    coletar_paradas(linhas, corredores)
+
     coletar_empresas()
 
     coletar_posicao_global()
-    coletar_posicao_linha()
+
+    coletar_posicao_linha(linhas)
+
     coletar_posicao_garagem()
 
-    coletar_previsao()
+    coletar_previsao(linhas)
+
     coletar_kmz()
 
-    print("✅ Ciclo completo finalizado")
+    log("✅ Ciclo completo finalizado")
+
+
 
 
 def executar_ciclo():
