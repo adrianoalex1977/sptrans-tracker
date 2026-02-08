@@ -15,7 +15,7 @@ TOKEN = os.getenv("SPTRANS_TOKEN")
 BASE_URL = "https://api.olhovivo.sptrans.com.br/v2.1"
 
 ROOT = Path(__file__).parent.resolve()
-DADOS_DIR = ROOT / "Dados"
+DADOS_DIR = ROOT / "dados"
 
 TIMEOUT = 30
 SLEEP_CALLS = 0.3
