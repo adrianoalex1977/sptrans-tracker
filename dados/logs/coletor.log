@@ -1,0 +1,19 @@
+2026-02-07 22:30:53,680 | INFO | 
+=== CICLO 1 ===
+2026-02-07 22:30:54,134 | INFO | \u274c Falha na autenticação — aguardando 60s
+2026-02-07 22:31:40,956 | INFO | 
+=== CICLO 1 ===
+2026-02-07 22:31:41,330 | INFO | \U0001f4e5 Coletando linhas
+2026-02-07 22:31:41,379 | INFO | \U0001f4e5 Coletando corredores
+2026-02-07 22:31:41,422 | INFO | \U0001f4e5 Coletando empresas
+2026-02-07 22:31:41,471 | INFO | \U0001f4e5 Coletando paradas
+2026-02-07 22:31:43,900 | INFO | \U0001f4e1 Tentando posição global
+2026-02-07 22:31:51,098 | INFO | \u23f3 Aguardando 65s
+2026-02-07 22:32:56,100 | INFO | 
+=== CICLO 2 ===
+2026-02-07 22:32:56,145 | INFO | \U0001f4e5 Coletando linhas
+2026-02-07 22:32:56,189 | INFO | \U0001f4e5 Coletando corredores
+2026-02-07 22:32:56,554 | INFO | \U0001f4e5 Coletando empresas
+2026-02-07 22:32:56,603 | INFO | \U0001f4e5 Coletando paradas
+2026-02-07 22:32:59,176 | INFO | \U0001f4e1 Tentando posição global
+2026-02-07 22:33:06,776 | INFO | \u23f3 Aguardando 53s
