@@ -207,4 +207,24 @@ def loop():
 # ============================================
 
 if __name__ == "__main__":
-    loop()
+
+    modo = os.getenv("EXEC_MODE", "local")
+
+    print(f"🚀 Modo de execução: {modo.upper()}")
+
+    def executar_ciclo():
+        if autenticar_api():
+            coletar_tudo()
+        else:
+            print("❌ Falha na autenticação")
+
+    if modo == "github":
+        executar_ciclo()
+        print("✅ Execução finalizada (modo github)")
+    else:
+        while True:
+            executar_ciclo()
+            intervalo = random.randint(40, 70)
+            print(f"⏳ Aguardando {intervalo}s para novo ciclo")
+            time.sleep(intervalo)
+
