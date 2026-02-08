@@ -46,11 +46,12 @@ jobs:
           mkdir -p Dados/curated
           mkdir -p Dados/logs
 
-      - name: Executar coletor SPTrans
+      - name: Executar script principal
         env:
           SPTRANS_TOKEN: ${{ secrets.SPTRANS_TOKEN }}
-        run: |
-          python coletor_sptrans.py
+          EXEC_MODE: github
+        run: python coletor_sptrans.py
+
 
       - name: Commit automático dos dados
         run: |
