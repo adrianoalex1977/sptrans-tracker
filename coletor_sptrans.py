@@ -57,8 +57,12 @@ PASTAS = [
 ]
 
 def criar_pastas():
+    DADOS_DIR.mkdir(parents=True, exist_ok=True)
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+
     for p in PASTAS:
         (DADOS_DIR / p).mkdir(parents=True, exist_ok=True)
+
 
 # -------------- UTIL ------------------------
 
