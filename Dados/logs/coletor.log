@@ -26,3 +26,10 @@
 2026-02-08 06:48:19,287 | INFO | 📥 Coletando paradas
 2026-02-08 06:48:22,439 | INFO | 📡 Tentando posição global
 2026-02-08 06:48:31,325 | INFO | ✅ Ciclo completo finalizado
+2026-02-08 07:08:22,576 | INFO | 🚏 Coletando dados SPTrans...
+2026-02-08 07:08:22,576 | INFO | 📥 Coletando linhas
+2026-02-08 07:08:22,718 | INFO | 📥 Coletando corredores
+2026-02-08 07:08:22,856 | INFO | 📥 Coletando empresas
+2026-02-08 07:08:22,994 | INFO | 📥 Coletando paradas
+2026-02-08 07:08:26,637 | INFO | 📡 Tentando posição global
+2026-02-08 07:08:32,293 | INFO | ✅ Ciclo completo finalizado
