@@ -32,10 +32,18 @@ jobs:
           pip install --upgrade pip
           pip install requests pandas tqdm lxml shapely pyproj
 
-      - name: Criar estrutura de pastas
+      - name: Criar estrutura completa de pastas
         run: |
-          mkdir -p Dados/json
-          mkdir -p Dados/kmz
+          mkdir -p Dados/raw/linhas
+          mkdir -p Dados/raw/paradas
+          mkdir -p Dados/raw/corredores
+          mkdir -p Dados/raw/empresas
+          mkdir -p Dados/raw/posicao_global
+          mkdir -p Dados/raw/posicao_linha
+          mkdir -p Dados/raw/posicao_garagem
+          mkdir -p Dados/raw/previsao
+          mkdir -p Dados/raw/kmz
+          mkdir -p Dados/curated
           mkdir -p Dados/logs
 
       - name: Executar coletor SPTrans
