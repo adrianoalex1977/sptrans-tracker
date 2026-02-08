@@ -2,7 +2,7 @@ name: SPTrans Tracker
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/2 * * * *"
   workflow_dispatch:
 
 concurrency:
@@ -40,11 +40,11 @@ jobs:
          mkdir -p Dados/raw/empresas
          mkdir -p Dados/raw/posicao_global
          mkdir -p Dados/raw/posicao_linha
-          mkdir -p Dados/raw/posicao_garagem
-          mkdir -p Dados/raw/previsao
-          mkdir -p Dados/raw/kmz
-          mkdir -p Dados/curated
-          mkdir -p Dados/logs
+         mkdir -p Dados/raw/posicao_garagem
+         mkdir -p Dados/raw/previsao
+         mkdir -p Dados/raw/kmz
+         mkdir -p Dados/curated
+         mkdir -p Dados/logs
 
       - name: Executar script principal
         env:
