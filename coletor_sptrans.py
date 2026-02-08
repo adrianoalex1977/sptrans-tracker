@@ -204,6 +204,26 @@ def loop():
             log(f"🔥 ERRO CRÍTICO: {e}")
             time.sleep(60)
 
+
+def coletar_tudo():
+    print("🚏 Coletando dados SPTrans...")
+
+    coletar_linhas()
+    coletar_paradas()
+    coletar_corredores()
+    coletar_empresas()
+
+    coletar_posicao_global()
+    coletar_posicao_linha()
+    coletar_posicao_garagem()
+
+    coletar_previsao()
+    coletar_kmz()
+
+    print("✅ Ciclo completo finalizado")
+
+
+
 # ============================================
 
 if __name__ == "__main__":
