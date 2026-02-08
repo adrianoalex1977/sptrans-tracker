@@ -210,22 +210,17 @@ def coletar_tudo():
 
     linhas = coletar_linhas() or []
     corredores = coletar_corredores() or []
+    empresas = coletar_empresas() or []
 
     coletar_paradas(linhas, corredores)
 
-    coletar_empresas()
-
-    coletar_posicao_global()
-
-    coletar_posicao_linha(linhas)
-
-    coletar_posicao_garagem()
-
-    coletar_previsao(linhas)
+    if not posicao_global():
+        posicao_fallback(linhas, empresas)
 
     coletar_kmz()
 
     log("✅ Ciclo completo finalizado")
+
 
 
 
