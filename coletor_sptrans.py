@@ -213,7 +213,7 @@ if __name__ == "__main__":
     print(f"🚀 Modo de execução: {modo.upper()}")
 
     def executar_ciclo():
-        if autenticar_api():
+        if autenticar():
             coletar_tudo()
         else:
             print("❌ Falha na autenticação")
@@ -227,4 +227,5 @@ if __name__ == "__main__":
             intervalo = random.randint(40, 70)
             print(f"⏳ Aguardando {intervalo}s para novo ciclo")
             time.sleep(intervalo)
+
 
