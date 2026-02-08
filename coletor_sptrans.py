@@ -223,22 +223,19 @@ def coletar_tudo():
     print("✅ Ciclo completo finalizado")
 
 
+def executar_ciclo():
+    if autenticar():
+        coletar_tudo()
+    else:
+        print("❌ Falha na autenticação")
 
-# ============================================
 
 if __name__ == "__main__":
 
     modo = os.getenv("EXEC_MODE", "local")
-
     print(f"🚀 Modo de execução: {modo.upper()}")
 
-    def executar_ciclo():
-        if autenticar():
-            coletar_tudo()
-        else:
-            print("❌ Falha na autenticação")
-
-    if modo == "github":
+    if modo.lower() == "github":
         executar_ciclo()
         print("✅ Execução finalizada (modo github)")
     else:
