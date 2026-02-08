@@ -34,17 +34,17 @@ jobs:
 
       - name: Criar estrutura completa de pastas
         run: |
-          mkdir -p dados/raw/linhas
-          mkdir -p dados/raw/paradas
-          mkdir -p dados/raw/corredores
-          mkdir -p dados/raw/empresas
-          mkdir -p dados/raw/posicao_global
-          mkdir -p dados/raw/posicao_linha
-          mkdir -p dados/raw/posicao_garagem
-          mkdir -p dados/raw/previsao
-          mkdir -p dados/raw/kmz
-          mkdir -p dados/curated
-          mkdir -p dados/logs
+         mkdir -p Dados/raw/linhas
+         mkdir -p Dados/raw/paradas
+         mkdir -p Dados/raw/corredores
+         mkdir -p Dados/raw/empresas
+          mkdir -p Dados/raw/posicao_global
+          mkdir -p Dados/raw/posicao_linha
+          mkdir -p Dados/raw/posicao_garagem
+          mkdir -p Dados/raw/previsao
+          mkdir -p Dados/raw/kmz
+          mkdir -p Dados/curated
+          mkdir -p Dados/logs
 
       - name: Executar script principal
         env:
@@ -58,7 +58,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dados || true
+          git add Dados || true
           git commit -m "📦 Atualização automática SPTrans $(date +'%Y-%m-%d %H:%M:%S')" || echo "Nada para commitar"
 
           git pull --rebase
