@@ -38,8 +38,8 @@ jobs:
          mkdir -p Dados/raw/paradas
          mkdir -p Dados/raw/corredores
          mkdir -p Dados/raw/empresas
-          mkdir -p Dados/raw/posicao_global
-          mkdir -p Dados/raw/posicao_linha
+         mkdir -p Dados/raw/posicao_global
+         mkdir -p Dados/raw/posicao_linha
           mkdir -p Dados/raw/posicao_garagem
           mkdir -p Dados/raw/previsao
           mkdir -p Dados/raw/kmz
