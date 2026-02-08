@@ -58,7 +58,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add Dados || true
+          git add dados || true
           git commit -m "📦 Atualização automática SPTrans $(date +'%Y-%m-%d %H:%M:%S')" || echo "Nada para commitar"
 
           git pull --rebase
